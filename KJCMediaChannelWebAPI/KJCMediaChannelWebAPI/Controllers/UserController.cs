@@ -2,6 +2,7 @@
 using KJCMediaChannelWebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Routing;
 
 namespace KJCMediaChannelWebAPI.Controllers
 {
@@ -23,10 +24,10 @@ namespace KJCMediaChannelWebAPI.Controllers
             return Ok(await dbContext.Users.ToListAsync());
         }
 
-        [HttpGet("{regno}")]
-        public async Task<ActionResult<User>> GetUser(string regno)
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult<User>> GetUser([FromRoute] Guid id)
         {
-            var user = await dbContext.Users.FindAsync(regno.ToUpper());
+            var user = await dbContext.Users.FindAsync(id);
             var updatedUser = new UserRequest()
             {
                 RegNo = user.RegNo,
@@ -49,6 +50,7 @@ namespace KJCMediaChannelWebAPI.Controllers
         {
             var user = new User()
             {
+                Id = Guid.NewGuid(),
                 RegNo = userRequest.RegNo.ToUpper(),
                 Username = userRequest.Username,
                 Email = userRequest.Email,
@@ -63,10 +65,10 @@ namespace KJCMediaChannelWebAPI.Controllers
         }
 
         //*** PUT METHODS ***//
-        [HttpPut("{regno}")]
-        public async Task<ActionResult<User>> UpdateUser(string regno, UserRequest userRequest)
+        [HttpPut("{id:guid}")]
+        public async Task<ActionResult<User>> UpdateUser(Guid id, UserRequest userRequest)
         {
-            var user = await dbContext.Users.FindAsync(regno.ToUpper());
+            var user = await dbContext.Users.FindAsync(id);
             if (user != null)
             {
                 user.RegNo = userRequest.RegNo.ToUpper();
@@ -83,13 +85,13 @@ namespace KJCMediaChannelWebAPI.Controllers
             return NotFound("User not found!");
         }
 
-        [HttpPut("role/{regno}")]
-        public async Task<ActionResult<User>> UpdateUserRole(string regno)
+        [HttpPut("role/{id:guid}")]
+        public async Task<ActionResult<User>> UpdateUserRole(Guid id, bool role)
         {
-            var user = await dbContext.Users.FindAsync(regno.ToUpper());
+            var user = await dbContext.Users.FindAsync(id);
             if (user != null)
             {
-                user.MakePost = true;
+                user.MakePost = role;
                 await dbContext.SaveChangesAsync();
 
                 return Ok(user);
@@ -98,10 +100,10 @@ namespace KJCMediaChannelWebAPI.Controllers
         }
 
         //*** DELETE METHODS ***//
-        [HttpDelete("{regno}")]
-        public async Task<ActionResult<User>> DeleteUser(string regno)
+        [HttpDelete("{id:guid}")]
+        public async Task<ActionResult<User>> DeleteUser(Guid id)
         {
-            var user = await dbContext.Users.FindAsync(regno.ToUpper());
+            var user = await dbContext.Users.FindAsync(id);
             if (user != null)
             {
                 dbContext.Users.Remove(user);

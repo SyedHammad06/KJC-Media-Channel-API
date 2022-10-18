@@ -3,17 +3,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KJCMediaChannelWebAPI.Models
 {
-    public class User
+    public class Event
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
-        public string RegNo { get; set; }
-        public string Username { get; set; }
-        public string Email { get; set; }
-        public long PhoneNo { get; set; }
-        public string Password { get; set; }
+        public Guid UserId { get; set; }
+        public string Description { get; set; }
+        public string Title { get; set; }
         public string Department { get; set; }
-        public bool MakePost { get; set; } = false;
+        public int MaxSlots { get; set; }
+        public int CurrentSlots { get; set; }
     }
 }
