@@ -7,5 +7,6 @@
         public string Department { get; set; }
         public int Likes { get; set; }
         public int Dislikes { get; set; }
+        public string? ImageLocation { get; set; } = null;
     }
 }

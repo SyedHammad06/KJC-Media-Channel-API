@@ -44,6 +44,7 @@ namespace KJCMediaChannelWebAPI.Controllers
                 Id = Guid.NewGuid(),
                 Title = newsRequest.Title,
                 Description = newsRequest.Description,
+                ImageLocation = newsRequest.ImageLocation,
             };
 
             await dbContext.News.AddAsync(news);
@@ -61,6 +62,7 @@ namespace KJCMediaChannelWebAPI.Controllers
             {
                 news.Title = newsRequest.Title;
                 news.Description = newsRequest.Description;
+                news.ImageLocation = newsRequest.ImageLocation;
 
                 await dbContext.SaveChangesAsync();
 

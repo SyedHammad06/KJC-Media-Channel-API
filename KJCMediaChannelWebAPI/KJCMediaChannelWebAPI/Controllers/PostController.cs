@@ -48,6 +48,7 @@ namespace KJCMediaChannelWebAPI.Controllers
                 Likes = postRequest.Likes,
                 Dislikes = postRequest.Dislikes,
                 CreatedDate = DateTime.Now,
+                ImageLocation = postRequest.ImageLocation,
             };
             await dbContext.Posts.AddAsync(post);
             await dbContext.SaveChangesAsync();

@@ -47,7 +47,8 @@ namespace KJCMediaChannelWebAPI.Controllers
                 Title = eventRequest.Title,
                 Department = eventRequest.Department,
                 MaxSlots = eventRequest.MaxSlots,
-                CurrentSlots = 0
+                ImageLocation = eventRequest.ImageLocation,
+                CurrentSlots = 0,
             };
 
             await dbContext.Events.AddAsync(eventDetails);
@@ -68,6 +69,7 @@ namespace KJCMediaChannelWebAPI.Controllers
                 eventDetails.Description = eventRequest.Description;
                 eventDetails.Department = eventRequest.Department;
                 eventDetails.MaxSlots = eventRequest.MaxSlots;
+                eventDetails.ImageLocation = eventRequest.ImageLocation;
 
                 await dbContext.SaveChangesAsync();
 

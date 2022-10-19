@@ -14,5 +14,6 @@ namespace KJCMediaChannelWebAPI.Models
         public string Department { get; set; }
         public int MaxSlots { get; set; }
         public int CurrentSlots { get; set; }
+        public string? ImageLocation { get; set; } = null;
     }
 }

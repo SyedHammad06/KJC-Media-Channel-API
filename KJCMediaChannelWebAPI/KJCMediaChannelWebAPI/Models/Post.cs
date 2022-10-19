@@ -14,5 +14,6 @@ namespace KJCMediaChannelWebAPI.Models
         public int Likes { get; set; }
         public int Dislikes { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public string? ImageLocation { get; set; } = null;
     }
 }
