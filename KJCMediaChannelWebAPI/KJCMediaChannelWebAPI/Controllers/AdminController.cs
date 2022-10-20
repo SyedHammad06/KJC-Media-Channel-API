@@ -34,6 +34,17 @@ namespace KJCMediaChannelWebAPI.Controllers
             return NotFound("Admin Not Found!");
         }
 
+        [HttpGet("{email}")]
+        public async Task<ActionResult<Admin>> GetAdminFromEmail(string email)
+        {
+            var admin = await dbContext.Admins.FirstOrDefaultAsync(adminReq => adminReq.Email == email);
+            if (admin != null)
+            {
+                return Ok(admin);
+            }
+            return NotFound("Comment not found");
+        }
+
         //* POST Methods *//
         [HttpPost]
         public async Task<ActionResult<Admin>> AddAdmin(AdminRequest adminRequest)

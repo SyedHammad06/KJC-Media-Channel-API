@@ -44,6 +44,17 @@ namespace KJCMediaChannelWebAPI.Controllers
             return NotFound("User not found!");
         }
 
+        [HttpGet("{email}")]
+        public async Task<ActionResult<Admin>> GetUserFromEmail(string email)
+        {
+            var user = await dbContext.Users.FirstOrDefaultAsync(user => user.Email == email);
+            if (user != null)
+            {
+                return Ok(user);
+            }
+            return NotFound("Comment not found");
+        }
+
         //*** POST METHODS ***//
         [HttpPost]
         public async Task<ActionResult<User>> AddUser(UserRequest userRequest)
