@@ -78,7 +78,7 @@ namespace KJCMediaChannelWebAPI.Controllers
             return NotFound("Event not found!");
         }
 
-        [HttpPut("/slots/{Id:guid}/{inc:bool}")]
+        [HttpPut("slots/{Id:guid}/{inc:bool}")]
         public async Task<ActionResult<Event>> updateSlots(Guid Id, bool inc)
         {
             var eventDetails = await dbContext.Events.FindAsync(Id);
