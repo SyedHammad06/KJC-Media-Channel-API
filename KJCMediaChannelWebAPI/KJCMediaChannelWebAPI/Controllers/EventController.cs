@@ -81,25 +81,45 @@ namespace KJCMediaChannelWebAPI.Controllers
         [HttpPut("slots/{Id:guid}/{inc:bool}")]
         public async Task<ActionResult<Event>> updateSlots(Guid Id, bool inc)
         {
+            //var eventDetails = await dbContext.Events.FindAsync(Id);
+            //if (eventDetails != null)
+            //{
+            //    if (inc == true)
+            //    {
+            //        eventDetails.CurrentSlots = eventDetails.CurrentSlots + 1;
+            //        await dbContext.SaveChangesAsync();
+
+            //        return Ok(eventDetails.CurrentSlots);
+            //    }
+            //    else
+            //    {
+            //        if (eventDetails.CurrentSlots > 0)
+            //        {
+            //            eventDetails.CurrentSlots = eventDetails.CurrentSlots - 1;
+            //            await dbContext.SaveChangesAsync();
+
+            //            return Ok(eventDetails.CurrentSlots);
+            //        }
+            //    }
+            //}
+            //return NotFound("Event not found!");
             var eventDetails = await dbContext.Events.FindAsync(Id);
             if (eventDetails != null)
             {
                 if (inc == true)
                 {
-                    eventDetails.CurrentSlots = eventDetails.CurrentSlots + 1;
+                    eventDetails.CurrentSlots++;
                     await dbContext.SaveChangesAsync();
-
                     return Ok(eventDetails.CurrentSlots);
-                }
+                } 
                 else
                 {
                     if (eventDetails.CurrentSlots > 0)
                     {
-                        eventDetails.CurrentSlots = eventDetails.CurrentSlots - 1;
+                        eventDetails.CurrentSlots--;
                         await dbContext.SaveChangesAsync();
-
-                        return Ok(eventDetails.CurrentSlots);
                     }
+                    return Ok(eventDetails.CurrentSlots);
                 }
             }
             return NotFound("Event not found!");
