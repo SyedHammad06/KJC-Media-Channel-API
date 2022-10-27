@@ -35,6 +35,19 @@ namespace KJCMediaChannelWebAPI.Controllers
             return NotFound("registrations for that event not found!");
         }
 
+        [HttpGet("{eventId:guid}/{username}")]
+        public async Task<ActionResult<Registration>> getRegistrationEventUser(Guid eventId, string username)
+        {
+            var registration = await dbContext.Registeration.FirstOrDefaultAsync(register => register.EventId == eventId && register.Username == username);
+            if (registration != null)
+            {
+                return Ok("Found");
+            } else
+            {
+                return Ok("Not Found");
+            }
+        }
+
         //* POST Methods *//
         [HttpPost]
         public async Task<ActionResult<Registration>> addRegistration(RegistrationRequest registrationRequest)

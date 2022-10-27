@@ -44,15 +44,15 @@ namespace KJCMediaChannelWebAPI.Controllers
             return NotFound("User not found!");
         }
 
-        [HttpGet("{email}")]
-        public async Task<ActionResult<Admin>> GetUserFromEmail(string email)
+        [HttpGet("{email}/{password}")]
+        public async Task<ActionResult<User>> GetUserFromEmail(string email, string password)
         {
-            var user = await dbContext.Users.FirstOrDefaultAsync(user => user.Email == email);
+            var user = await dbContext.Users.FirstOrDefaultAsync(userReq => userReq.Email == email && userReq.Password == password);
             if (user != null)
             {
                 return Ok(user);
             }
-            return NotFound("Comment not found");
+            return NotFound("Users not found");
         }
 
         //*** POST METHODS ***//

@@ -34,15 +34,15 @@ namespace KJCMediaChannelWebAPI.Controllers
             return NotFound("Admin Not Found!");
         }
 
-        [HttpGet("{email}")]
-        public async Task<ActionResult<Admin>> GetAdminFromEmail(string email)
+        [HttpGet("{email}/{password}")]
+        public async Task<ActionResult<Admin>> GetAdminFromEmail(string email, string password)
         {
-            var admin = await dbContext.Admins.FirstOrDefaultAsync(adminReq => adminReq.Email == email);
+            var admin = await dbContext.Admins.FirstOrDefaultAsync(adminReq => adminReq.Email == email && adminReq.Password == password);
             if (admin != null)
             {
                 return Ok(admin);
             }
-            return NotFound("Comment not found");
+            return NotFound("Admin not found");
         }
 
         //* POST Methods *//
